@@ -17,8 +17,8 @@ for path, encoded in file_data.items():
 
 
 def run(command):
-    os.system('export PYTHONPATH=${PYTHONPATH}:/kaggle/working && ' + command)
+    os.system("export PYTHONPATH=${PYTHONPATH}:/kaggle/working && " + command)
 
 
-run('python setup.py develop --install-dir /kaggle/working')
-run('python easy_gold/main.py')
+run("python setup.py develop --install-dir /kaggle/working")
+run("python easy_gold/main.py")

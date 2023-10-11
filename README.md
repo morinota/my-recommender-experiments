@@ -6,6 +6,9 @@
 - easy_goldディレクトリ以下にコードを書く。
 - kaggleのcode competitionをする上では、最終的にsubmission.csvが出力されるようにコードを書く。
   - build.pyを実行する。
-    -
+    - やっている事は以下:
+    - 1. 全てのコードをbase64でencodeして文字列に変換する。
+    - 2. encodeしたコードのファイルパスをkey, encodeした文字列をvalueにしたdictを作る。
+    - 3. script_template.pyというscript.pyを作るためのテンプレートの`file_data`部分に辞書の内容を置換する。
   - 実行後、build/script.pyが生成されているので、それをNotebooksに貼り付ける。
   - その後はCommitボタンを押してsubmitするという流れ。
