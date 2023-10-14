@@ -12,3 +12,9 @@
     - 3. script_template.pyというscript.pyを作るためのテンプレートの`file_data`部分に辞書の内容を置換する。
   - 実行後、build/script.pyが生成されているので、それをNotebooksに貼り付ける。
   - その後はCommitボタンを押してsubmitするという流れ。
+
+## 実行環境link
+
+https://www.kaggle.com/masatomasamasa/my-recommender-experiments/edit
+
+##
