@@ -1,4 +1,4 @@
 # recommenders == 1.1.1 
 # 2023/09/29時点で一番新しいversion https://pypi.org/project/recommenders/#history (3.6 <= python < 3.10 対応らしい)
-gokart
+gokart == 1.2.3
 cookiecutter
