@@ -10,7 +10,8 @@ def encode_file(path: Path) -> str:
 
 
 def build_script():
-    to_encode = list(Path("easy_gold").glob("*.py")) + [Path("setup.py")]
+    to_encode = list(Path("easy_gold").glob("**/*.py")) + [Path("setup.py")]
+    print(to_encode)
     file_data = {str(path): encode_file(path) for path in to_encode}  # ここでなぜか / が \\になっているので置き換えたい。
     valid_file_data = {key.replace("\\", "/"): value for key, value in file_data.items()}
     template = Path("script_template.py").read_text("utf8")
