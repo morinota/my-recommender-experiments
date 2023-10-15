@@ -20,6 +20,6 @@ def run(command):
     os.system("export PYTHONPATH=${PYTHONPATH}:/kaggle/working && " + command)
 
 
+run("pip install -r requirements.txt")
 run("python setup.py develop --install-dir /kaggle/working")
-run("python easy_gold/install_packages.py")
 run("python easy_gold/main.py")
