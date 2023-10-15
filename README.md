@@ -16,5 +16,3 @@
 ## 実行環境link
 
 https://www.kaggle.com/masatomasamasa/my-recommender-experiments/edit
-
-##
