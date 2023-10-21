@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "recommender_experiments"
+version = "1.0.0"
+description = "What's this project?"
+authors = ["morinota"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+gokart = "*"
+
+[build-system]
+requires = ["poetry"]
+build-backend = "poetry.masonry.api"
