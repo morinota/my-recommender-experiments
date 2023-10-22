@@ -4,8 +4,8 @@ from pathlib import Path
 class MINDConfig:
     # refs: https://learn.microsoft.com/ja-jp/azure/open-datasets/dataset-microsoft-news?tabs=azureml-opendatasets
     download_base_url = "https://mind201910small.blob.core.windows.net/release"
-    training_small_url = f"{download_base_url}/MINDsmall_train.zip"
-    validation_small_url = f"{download_base_url}/MINDsmall_dev.zip"
+    training_small_url = f"{download_base_url}/MINDsmall_train.zip"  # about 50MB
+    validation_small_url = f"{download_base_url}/MINDsmall_dev.zip"  # about 30MB
     training_large_url = f"{download_base_url}/MINDlarge_train.zip"
     validation_large_url = f"{download_base_url}/MINDlarge_dev.zip"
 
