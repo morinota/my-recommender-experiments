@@ -19,6 +19,43 @@ class LoadRawInputTask(gokart.TaskOnKart):
         "training_large",
         "validation_large",
     ]
+    file_structure_of = {
+        "behaviors.tsv": {
+            "extension": ".tsv",
+            "header": None,
+            "names": [
+                "impression_id",
+                "user_id",
+                "time",
+                "history",
+                "impressions",
+            ],
+        },
+        "news.tsv": {
+            "extension": ".tsv",
+            "header": None,
+            "names": [
+                "id",
+                "category",
+                "subcategory",
+                "title",
+                "abstract",
+                "url",
+                "title_entities",
+                "abstract_entities",
+            ],
+        },
+        "entity_embedding.vec": {
+            "extension": ".vec",
+            "header": None,
+            "names": None,
+        },
+        "relation_embedding.vec": {
+            "extension": ".vec",
+            "header": None,
+            "names": None,
+        },
+    }
 
     def requires(self):
         return DownloadRawInputTask()
