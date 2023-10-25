@@ -11,11 +11,17 @@ class TestSample(unittest.TestCase):
     def setup(self):
         self.output_data = None
 
-    def test_hoge(self):
-        task = Sample()
-        task.dump = MagicMock(side_effect=self._dump)
-        task.run()
-        self.assertEqual(self.output_data, "sample output")
+    def test_text_sample_output_is_dumped(self):
+        # Arrange
+        sut = Sample()
+        sut.dump = MagicMock(side_effect=self._dump)  # taskの出力をself.outputに渡す指定(テストダブルのmockとしての運用か...!)
+
+        # Act
+        sut.run()
+
+        # Assert
+        # self.assertEqual(self.output_data, "sample output")
+        assert self.output_data == "sample output"  # どっちでもOK
 
     def _dump(self, data):
         self.output_data = data
