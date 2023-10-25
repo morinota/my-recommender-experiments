@@ -10,27 +10,25 @@ from urllib import request
 
 
 class DownloadRawInputTask(gokart.TaskOnKart):
-    dadaset_name_candidate = [
+    DATASET_NAME_CANDIDATE = [
         "training_small",
         "validation_small",
         "training_large",
         "validation_large",
     ]
-    dataset_name = luigi.TaskParameter(
-        "training_small",
-        description="",
-    )
+    dataset_name: str = luigi.Parameter(default="training_small")
+    destination_dir: Path = luigi.Parameter()
 
-    def run(self) -> None:
+    def run(self) -> Path:
         temp_dir = Path(tempfile.gettempdir()) / "mind"
         temp_dir.mkdir(parents=True, exist_ok=True)
 
-        self.dump(
-            self._run(
-                url=MINDConfig.validation_small_url,
-                destination_filepath=temp_dir / "validation_small.tsv",
-            )
+        zip_path = self._run(
+            url=MINDConfig.validation_small_url,
+            destination_filepath=temp_dir / "MINDsmall_train.zip",
         )
+        self.dump(zip_path)
+        return zip_path
 
     @staticmethod
     def _run(

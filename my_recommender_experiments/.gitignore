@@ -115,3 +115,5 @@ conf/env.list.local
 
 # for Mac
 .DS_Store
+# dataset
+*.zip

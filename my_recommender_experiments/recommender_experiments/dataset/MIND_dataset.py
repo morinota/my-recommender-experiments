@@ -109,15 +109,12 @@ class MINDDataset(BaseDataset):
         )
 
     def convert_behaviors(self) -> Path:
-        try:
-            input_behaviors_data = self._load_behaviors_data()
-            return self._convert(
-                input_behaviors_data,
-                self.behaviors_fields,
-                self.output_behavior_file,
-            )
-        except NotImplementedError:
-            print("This dataset can't be converted to user file\n")
+        input_behaviors_data = self._load_behaviors_data()
+        return self._convert(
+            input_behaviors_data,
+            self.behaviors_fields,
+            self.output_behavior_file,
+        )
 
     def convert_news(self) -> Path:
         input_news_data = self._load_news_data()
@@ -157,5 +154,6 @@ class MINDDataset(BaseDataset):
         expanded_df[["item_id", "is_tap_str"]] = expanded_df["impression_list"].str.split("-", expand=True)
 
         expanded_df["is_tap"] = expanded_df["is_tap_str"].astype(int)
-
+        # データが多すぎるのでis_tap=0のレコードを落とす
+        expanded_df_only_tap = expanded_df.loc[expanded_df["is_tap"] == 1]
         return expanded_df[["impression_id", "user_id", "item_id", "history", "time", "is_tap"]]
