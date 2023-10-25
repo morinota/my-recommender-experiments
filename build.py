@@ -4,7 +4,7 @@ import gzip
 from pathlib import Path
 
 
-def _prepare_to_encode(target_dirs: list[str]) -> list[Path]:
+def _prepare_path_to_encode(target_dirs: list[str]) -> list[Path]:
     to_encode: list[Path] = []
     for target_dir in target_dirs:
         to_encode += list(Path(target_dir).glob("**/*.*"))
@@ -15,9 +15,14 @@ def _prepare_to_encode(target_dirs: list[str]) -> list[Path]:
 
 
 def _should_encode(path: Path) -> bool:
+    invalid_extensions = [".pkl", ".pyc", ".zip", ".txt"]
     if path.is_dir():
         return False
     if path.name.startswith("."):
+        return False
+    if path.name.startswith("test_"):
+        return False
+    if path.suffix in invalid_extensions:
         return False
     return True
 
@@ -28,7 +33,7 @@ def _encode_file(path: Path) -> str:
 
 
 def build_script():
-    to_encode = _prepare_to_encode(["easy_gold", "my_recommender_experiments"])
+    to_encode = _prepare_path_to_encode(["easy_gold", "my_recommender_experiments"])
     file_data = {str(path): _encode_file(path) for path in to_encode}  # ここでなぜか / が \\になっているので置き換えたい。
     valid_file_data = {key.replace("\\", "/"): value for key, value in file_data.items()}
     template = Path("script_template.py").read_text("utf8")
