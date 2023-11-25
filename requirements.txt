@@ -1,4 +1,4 @@
 gokart == 1.2.3 # https://pypi.org/project/gokart/#history
 cookiecutter
-recbole == 1.1.1 # https://pypi.org/project/recbole/#history
+recbole == 1.2.0 # https://pypi.org/project/recbole/#history
 pytest 
