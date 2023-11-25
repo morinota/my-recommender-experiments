@@ -5,23 +5,24 @@ import tempfile
 import zipfile
 import gokart
 
-import pandas as pd
+
+from recommender_experiments.model.task_interface import TaskInterface
 from recommender_experiments.model.data_flow.download_raw_input import DownloadRawInputTask
 from recommender_experiments.dataset.MIND_dataset import MINDDataset
 
 
-class ConvertRawInputToAtomicTask(gokart.TaskOnKart):
+class ConvertRawInputToAtomicTask(TaskInterface):
     zip_path = gokart.TaskInstanceParameter()
 
-    def requires(self) -> dict:
-        return dict(zip_path=self.zip_path)
+    def __init__(self, raw_input_zip_path: Path) -> None:
+        self.raw_input_zip_path = raw_input_zip_path
 
-    def run(self) -> None:
+    def run(self) -> tuple[Path, Path, Path, Path]:
         zip_path: Path = self.load("zip_path")
         output_path = Path(tempfile.gettempdir()) / "mind"
         output_path.mkdir(parents=True, exist_ok=True)
         dataset_kind = "validation_small"
-        self.dump(self._run(zip_path, output_path, dataset_kind))
+        return self._run(zip_path, output_path, dataset_kind)
 
     @staticmethod
     def _run(

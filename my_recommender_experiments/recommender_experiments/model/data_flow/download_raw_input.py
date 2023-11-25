@@ -1,23 +1,26 @@
 import os
 from pathlib import Path
 import tempfile
-from typing import Optional
-import zipfile
-import gokart
-import luigi
+from recommender_experiments.model.task_interface import TaskInterface
 from recommender_experiments.dataset.data_config import MINDConfig
 from urllib import request
 
 
-class DownloadRawInputTask(gokart.TaskOnKart):
+class DownloadRawInputTask(TaskInterface):
     DATASET_NAME_CANDIDATE = [
         "training_small",
         "validation_small",
         "training_large",
         "validation_large",
     ]
-    dataset_name: str = luigi.Parameter(default="training_small")
-    destination_dir: Path = luigi.Parameter()
+
+    def __init__(
+        self,
+        dataset_type: str,
+        destination_dir: Path,
+    ) -> None:
+        self.dataset_type = dataset_type
+        self.destination_dir = destination_dir
 
     def run(self) -> Path:
         temp_dir = Path(tempfile.gettempdir()) / "mind"
