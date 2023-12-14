@@ -24,5 +24,5 @@ def test_df_is_converted_str_for_atomic_file() -> None:
     print(atomic_data)
 
     # Assert
-    atomic_data_expected = "id:token\tcategory:token\tsubcategory:token\n1\tcat1\tsubcat1\n2\tcat2\tsubcat2\n"
+    atomic_data_expected = "id:token\tcategory:token\tsubcategory:token\n1\tcat1\tsubcat1\n2\tcat2\tsubcat2"
     assert atomic_data == atomic_data_expected
