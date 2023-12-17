@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from recommender_experiments.dataset.MIND_dataset import MINDDataset
-from recommender_experiments.model.data_flow.convert_raw_input_to_atomic import ConvertRawInputToAtomicTask
-from recommender_experiments.model.data_flow.raw_input_downloader import DownloadRawInputTask
-from recommender_experiments.model.data_flow.atomic_file_exporter import AtomicFileExporter
+from feature_pipelines.MIND_dataset import MINDDataset
+from feature_pipelines.convert_raw_input_to_atomic import ConvertRawInputToAtomicTask
+from feature_pipelines.raw_input_downloader import DownloadRawInputTask
+from feature_pipelines.atomic_file_exporter import AtomicFileExporter
 
 from recommender_experiments.model.task_interface import TaskInterface
 

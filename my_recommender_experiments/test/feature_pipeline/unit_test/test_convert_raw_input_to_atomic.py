@@ -1,4 +1,4 @@
-from recommender_experiments.model.data_flow.convert_raw_input_to_atomic import ConvertRawInputToAtomicTask
+from feature_pipelines.convert_raw_input_to_atomic import ConvertRawInputToAtomicTask
 import pandas as pd
 
 

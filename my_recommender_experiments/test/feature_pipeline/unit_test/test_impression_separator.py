@@ -1,11 +1,13 @@
-from recommender_experiments.dataset.MIND_dataset import ImpresionsSeparator
+from feature_pipelines.impression_separator import ImpresionsSeparator
 import pandas as pd
 
 
 def test_impressions_are_separated_as_implicit_feedback() -> None:
     behavior_df = pd.DataFrame(
         {
+            "impression_id": [1],
             "user_id": [1],
+            "history": ["N0 N6"],
             "impressions": ["N1-1 N2-1 N3-0 N4-0 N5-0"],
         }
     )
@@ -18,6 +20,8 @@ def test_impressions_are_separated_as_implicit_feedback() -> None:
     implicit_feedbacks_expected = behavior_df = pd.DataFrame(
         {
             "user_id": [1, 1],
+            "impression_id": [1, 1],
+            "history": ["N0 N6", "N0 N6"],
             "news_id": ["N1", "N2"],
         }
     )

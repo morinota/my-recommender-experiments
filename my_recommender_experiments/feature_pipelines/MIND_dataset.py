@@ -7,11 +7,13 @@ import zipfile
 from numpy import int8
 
 import pandas as pd
-from recommender_experiments.dataset.base_dataset import RawDatasetInterface
+
+# from feature_pipelines.base_dataset import RawDatasetInterface
+from feature_pipelines.impression_separator import ImpresionsSeparator
 
 
 @dataclass
-class MINDDataset(RawDatasetInterface):
+class MINDDataset:
     # selected feature fields
     # 型について -> https://recbole.io/docs/user_guide/data/atomic_files.html#format
     DATASET_KINDS_CANDIDATES = [
@@ -45,7 +47,6 @@ class MINDDataset(RawDatasetInterface):
         2: "time:float",
         3: "history:token_seq",
         4: "item_id:token",
-        5: "is_tap:float",
     }
     news_fields = {
         0: "id:token",
@@ -137,28 +138,3 @@ class MINDDataset(RawDatasetInterface):
         relation_embedding["vector"] = relation_embedding.iloc[:, 1:101].values.tolist()
         relation_embedding = relation_embedding[[0, "vector"]].rename(columns={0: "entity_id"})
         return relation_embedding
-
-
-class ImpresionsSeparator:
-    def __init__(self) -> None:
-        pass
-
-    def separate(
-        self,
-        behavior_df: pd.DataFrame,
-        impressions_col: str = "impressions",
-        separated_col: str = "news_id",
-    ) -> pd.DataFrame:
-        implicit_feedbacks = []
-        for _, row in behavior_df.iterrows():
-            user_id = row["user_id"]
-            impressions_str = row[impressions_col]
-            impressions_list = impressions_str.split()
-
-            for impression in impressions_list:
-                news_id, is_interact = impression.split("-")
-                if is_interact == "0":
-                    continue
-                implicit_feedbacks.append({"user_id": user_id, separated_col: news_id})
-
-        return pd.DataFrame(implicit_feedbacks)

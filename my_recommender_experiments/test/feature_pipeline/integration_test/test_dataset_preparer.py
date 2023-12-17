@@ -1,6 +1,6 @@
 from pathlib import Path
 import tempfile
-from recommender_experiments.model.data_flow.dataset_preparer import DatasetPreparer
+from feature_pipelines.dataset_preparer import DatasetPreparer
 
 
 # def test_mind_dataset_is_downloaded_and_prepared_as_atomic_files() -> None:
