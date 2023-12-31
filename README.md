@@ -16,3 +16,5 @@
 ## 実行環境link
 
 https://www.kaggle.com/masatomasamasa/my-recommender-experiments/edit
+
+windowsの場合は、numpyとscipyをhttps://toriaezu-engineer.hatenablog.com/entry/2016/10/09/084428を参考にinstallする。

@@ -1,3 +1,6 @@
 /build/script.py
 .venv
 *.pyc
+*.zip
+*.log
+*.pth

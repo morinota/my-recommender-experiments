@@ -44,8 +44,9 @@
     - impressions:
       - 一回のimpression内で表示したニュース一覧。(5週目の間に読んだ記事ってこと??)
       - formatは`[News ID 1]-[label1] ... [News ID n]-[labeln]`
+      - ex. `N4-1 N34-1 N156-0 N207-0 N198-0`
       - labelは対象ユーザによってclickされたか否か。(1 or 0)
-      - 順番はランダム。
+      - 順番はランダムになってる。
   - user click historyとimpression newsの全ての記事は、news data fileに含まれている。
 
 ### 記事のメタデータ
