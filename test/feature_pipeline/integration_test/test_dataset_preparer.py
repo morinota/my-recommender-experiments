@@ -5,8 +5,8 @@ from feature_pipelines.dataset_preparer import DatasetPreparer
 
 def test_already_existing_mind_dataset_is_just_converted_to_atomic_files():
     # Arrange
-    dataset_type = "training_small"
-    destination_dir = Path("my_recommender_experiments/")
+    dataset_type = "mind_training_small"
+    destination_dir = Path("./feature_store/data/")
     if not destination_dir.joinpath("MINDsmall_train.zip").exists():
         raise Exception("MINDDataset is not existing. please download it before testing.")
     sut = DatasetPreparer()
@@ -16,11 +16,15 @@ def test_already_existing_mind_dataset_is_just_converted_to_atomic_files():
 
     # Assert
     atomic_files_expected = [
-        destination_dir / "training_small.inter",
-        destination_dir / "training_small.item",
-        destination_dir / "training_small.ent",
-        destination_dir / "training_small.rel",
+        destination_dir / "mind_training_small.inter",
+        destination_dir / "mind_training_small.item",
     ]
     for filepath in atomic_files:
         assert filepath.exists()
         assert filepath in atomic_files_expected
+    # (Cleanup)
+    for filepath in atomic_files + atomic_files_expected:
+        try:
+            filepath.unlink()
+        except:
+            print("the file is not existing: " + str(filepath))
