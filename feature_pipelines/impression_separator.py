@@ -32,7 +32,6 @@ class ImpresionsSeparator:
             impressions_str = record[impressions_col]
             impressions_list = impressions_str.split()
             remain_value_by_col = {col: record[col] for col in remain_cols}
-            print(remain_value_by_col)
 
             for impression in impressions_list:
                 news_id, label = impression.split("-")
