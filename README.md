@@ -21,6 +21,8 @@ windowsの場合は、numpyとscipyをhttps://toriaezu-engineer.hatenablog.com/e
 
 ## google colabでの実行手順:
 
+notebookのlink: https://colab.research.google.com/drive/1VlFcj2pFwHjF4pfTPvqyeZ98paiHG5Lk?usp=sharing
+
 ```
 # environment setup
 !git clone https://github.com/morinota/my-recommender-experiments.git
