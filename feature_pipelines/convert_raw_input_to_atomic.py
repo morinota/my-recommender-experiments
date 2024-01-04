@@ -20,14 +20,12 @@ class ConvertRawInputToAtomicTask(TaskInterface):
         print(f"df.columns: {df.columns=}")
         for feature_name, feature_type in feature_type_by_name.items():
             atomic_feature_name = f"{feature_name}:{feature_type}"
-            print(f"{atomic_feature_name=}")
             output_data[atomic_feature_name] = df.loc[:, feature_name]
 
         # 1行目はfield名
         atomic_records = [self.SEPARATOR.join(output_data.columns)]
 
         for record in output_data.itertuples():
-            print(record)
             atomic_record = self.SEPARATOR.join([str(feature) for feature in record[1:]])  # idx=0は行番号なので除外
             atomic_records.append(atomic_record)
 
