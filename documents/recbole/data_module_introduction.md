@@ -94,7 +94,7 @@
     - UserDataLoaderクラス:
       - user_idを含むデータだけがbatchに含まれて返される。(??)
 - Interactionクラス:
-  - interactionレコード集合のbatchを表すクラス。
+  - **interactionレコード集合のバッチ**を表すクラス。(単一のレコードではなくバッチ!)
   - 属性:
     - interaction: dict or pd.DataFrame
   - 関数:
