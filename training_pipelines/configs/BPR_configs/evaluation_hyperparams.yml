@@ -1,0 +1,14 @@
+eval_args:
+  {
+    "split": { "RS": [0.8, 0.1, 0.1] },
+    "order": "RO",
+    "group_by": "user",
+    "mode": { "valid": "full", "test": "full" },
+  }
+repeatable: False
+metrics: ["Recall", "MRR", "NDCG", "Hit", "Precision"]
+topk: [10, 15]
+valid_metric: "MRR@10"
+valid_metric_bigger: True
+eval_batch_size: 512
+metric_decimal_place: 4

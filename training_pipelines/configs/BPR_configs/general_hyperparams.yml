@@ -1,0 +1,13 @@
+gpu_id: 0
+use_gpu: False
+seed: 2020
+state: "INFO"
+reproducibility: True
+data_path: "./feature_store/atomic_data/"
+checkpoint_dir: "./training_pipelines/save/checkpoints/"
+show_progress: True
+save_dataset: False
+dataset_save_path: "./training_pipelines/save/dataset/"
+save_dataloaders: False
+dataloaders_save_path: "./training_pipelines/save/dataloader/"
+log_wandb: False
