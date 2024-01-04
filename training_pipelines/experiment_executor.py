@@ -1,18 +1,12 @@
-from training_pipelines.task_interface import TaskInterface
-from logging import getLogger
+from task_interface import TaskInterface
+from logging import Logger, getLogger
 from pathlib import Path
 from recbole.config import Config
 from recbole.data import create_dataset, data_preparation
 
 from recbole.model.abstract_recommender import AbstractRecommender
 from recbole.trainer import Trainer
-from config.recbole_config import (
-    EnvironmentSettings,
-    DataSettings,
-    TrainingSettings,
-    EvaluationSettings,
-)
-from recbole.utils import init_seed
+from recbole.utils import init_seed, init_logger
 
 
 class ExperimentExecutor(TaskInterface):
@@ -22,40 +16,36 @@ class ExperimentExecutor(TaskInterface):
         self,
         model: AbstractRecommender,
         dataset_name: str = "mind",
-        model_hyper_params: dict = {},
+        config_dict: dict = {},
     ) -> None:
         self.model = model
 
-        recbole_config_dict = {
-            **EnvironmentSettings(
-                data_path=str(self.ATOMIC_FILE_DIR),
-            ).to_dict(),
-            **DataSettings().to_dict(),
-            **TrainingSettings().to_dict(),
-            **EvaluationSettings().to_dict(),
-            **model_hyper_params,
-        }
         self.config = Config(
             model,
             dataset_name,
-            config_dict=recbole_config_dict,
+            config_dict=config_dict,
         )
         init_seed(self.config["seed"], self.config["reproducibility"])
 
+        init_logger(self.config)
         self.logger = getLogger()
+        self.logger.info(self.config)
 
     def run(self) -> None:
         # create dataset & filtering & preprocessing
         dataset = create_dataset(self.config)
+        self.logger.info(dataset)
 
         # create dataloaders
         train_data, valid_data, test_data = data_preparation(self.config, dataset)
 
         # model loading and initialization
         model = self.model(self.config, dataset)
+        self.logger.info(model)
 
         # trainer loading and initialization
         trainer = Trainer(self.config, model)
+        self.logger.info(trainer)
 
         # model training
         best_valid_score, best_valid_result = trainer.fit(
@@ -71,3 +61,6 @@ class ExperimentExecutor(TaskInterface):
 
         # model parameter saving
         trainer.save()
+
+    def _init_logger(self) -> Logger:
+        pass
