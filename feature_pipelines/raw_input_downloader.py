@@ -33,6 +33,9 @@ class DownloadRawInputTask(TaskInterface):
             return destination_filepath
 
         print(f"[LOG]Downloading file {os.path.basename(url)} to {str(destination_filepath)}")
+
+        if not destination_filepath.parent.exists():
+            destination_filepath.parent.mkdir(parents=True)
         with request.urlopen(url) as response, destination_filepath.open("wb") as out_file:
             data = response.read()
             out_file.write(data)
