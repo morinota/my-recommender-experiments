@@ -1,7 +1,7 @@
 from pathlib import Path
 from custom_models.nrms import NRMS
 from recbole.model.general_recommender import BPR
-from experiment_executor import ExperimentExecutor
+from training_executor import TrainingExecutor
 from configs.recbole_config import load_config_from_yamls
 
 
@@ -11,13 +11,13 @@ def main() -> None:
     # current_dirを出力
     print(f"[LOG] current_dir: {Path.cwd()}")
 
-    model = BPR
+    model = "NRMS"
     dataset_name = "mind_training_small"
     config_files_dir = Path("./training_pipelines/configs/BPR_configs/")
 
     config_dict = load_config_from_yamls(config_files_dir)
 
-    executor = ExperimentExecutor(model, dataset_name, config_dict)
+    executor = TrainingExecutor(model, dataset_name, config_dict)
     executor.run()
 
 
