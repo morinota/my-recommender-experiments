@@ -4,3 +4,7 @@
 *.zip
 *.log
 *.pth
+*.inter
+*.item
+*.user
+*log_*/*
