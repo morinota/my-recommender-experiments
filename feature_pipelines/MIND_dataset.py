@@ -106,7 +106,16 @@ class MINDDataset:
         return pd.read_table(
             unziped_dir / cls.RAW_FILES_INFO["news"]["filename"],
             header=None,
-            names=["id", "category", "subcategory", "title", "abstract", "url", "title_entities", "abstract_entities"],
+            names=[
+                "news_id",
+                "category",
+                "subcategory",
+                "title",
+                "abstract",
+                "url",
+                "title_entities",
+                "abstract_entities",
+            ],
         )
 
     @classmethod
