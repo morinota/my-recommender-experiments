@@ -9,6 +9,10 @@ def test_already_existing_mind_dataset_is_just_converted_to_atomic_files():
     destination_dir = Path("./feature_store/data/")
     if not destination_dir.joinpath("MINDsmall_train.zip").exists():
         raise Exception("MINDDataset is not existing. please download it before testing.")
+    # MINDsmall_train.zip以外のファイルを削除しておく
+    for filepath in destination_dir.iterdir():
+        if filepath.name != "MINDsmall_train.zip":
+            filepath.unlink()
     sut = DatasetPreparer()
 
     # Act
@@ -22,9 +26,3 @@ def test_already_existing_mind_dataset_is_just_converted_to_atomic_files():
     for filepath in atomic_files:
         assert filepath.exists()
         assert filepath in atomic_files_expected
-    # (Cleanup)
-    for filepath in atomic_files + atomic_files_expected:
-        try:
-            filepath.unlink()
-        except:
-            print("the file is not existing: " + str(filepath))
