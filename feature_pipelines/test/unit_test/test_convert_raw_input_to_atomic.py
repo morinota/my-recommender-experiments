@@ -1,9 +1,15 @@
-from feature_pipelines.convert_raw_input_to_atomic import ConvertRawInputToAtomicTask
+import os
+import sys
+
+from convert_raw_input_to_atomic import ConvertRawInputToAtomicTask
 import pandas as pd
 
 
 def test_df_is_converted_str_for_atomic_file() -> None:
     # Arrange
+    print(os.getcwd)
+    # import可能なpathを出力
+    print(sys.path)
     df = pd.DataFrame(
         {
             "id": [1, 2],
@@ -11,15 +17,15 @@ def test_df_is_converted_str_for_atomic_file() -> None:
             "subcategory": ["subcat1", "subcat2"],
         }
     )
-    field_type_by_id = {
-        0: "id:token",
-        1: "category:token",
-        2: "subcategory:token",
+    feature_type_by_name = {
+        "id": "token",
+        "category": ":token",
+        "subcategory": "token",
     }
     sut = ConvertRawInputToAtomicTask()
 
     # Act
-    atomic_data = sut.run(df, field_type_by_id)
+    atomic_data = sut.run(df, feature_type_by_name)
     print("\n")
     print(atomic_data)
 
