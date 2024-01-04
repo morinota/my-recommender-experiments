@@ -7,10 +7,10 @@ from urllib import request
 class DownloadRawInputTask(TaskInterface):
     DOWNLOAD_BASE_URL = "https://mind201910small.blob.core.windows.net/release"
     DATASET_FILE_BY_TYPE = {
-        "training_small": "MINDsmall_train.zip",  # about 50MB
-        "validation_small": "MINDsmall_dev.zip",  # about 30MB
-        "training_large": "MINDlarge_train.zip",
-        "validation_large": "MINDlarge_dev.zip",
+        "mind_training_small": "MINDsmall_train.zip",  # about 50MB
+        "mind_validation_small": "MINDsmall_dev.zip",  # about 30MB
+        "mind_training_large": "MINDlarge_train.zip",
+        "mind_validation_large": "MINDlarge_dev.zip",
     }
 
     def __init__(self) -> None:
