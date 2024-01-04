@@ -11,7 +11,7 @@ def main():
     atomic_files = preparer.run(dataset_type, destination_dir, False)
 
     for filepath in atomic_files:
-        print(f"[LOG] {filepath} is prepared.")
+        print(f"[LOG] {filepath} is successfully created.")
 
 
 if __name__ == "__main__":
