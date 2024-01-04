@@ -13,7 +13,7 @@ class AbstractConfig(abc.ABC):
 @dataclasses.dataclass(frozen=True)
 class EnvironmentSettings(AbstractConfig):
     gpu_id: str = "0"
-    worker: int = 0
+    use_gpu: bool = False
     seed: int = 2020
     state: str = "INFO"  # ログレベル
     encoding: str = "utf-8"
@@ -23,11 +23,9 @@ class EnvironmentSettings(AbstractConfig):
     show_progress: bool = True
     save_dataset: bool = False
     dataset_save_path: str = "./training_pipelines/save/dataset/"
-    save_dataloader: bool = False
+    save_dataloaders: bool = False
     dataloaders_save_path: str = "./training_pipelines/save/dataloader/"
     log_wandb: bool = False
-    wandb_project: str = "recbole"
-    shuffle: bool = True
 
 
 @dataclasses.dataclass(frozen=True)
@@ -90,7 +88,7 @@ class DataSettings(AbstractConfig):
     # Basic Information
     ## Common Features
     USER_ID_FIELD: str = "user_id"
-    ITEM_ID_FIELD: str = "item_id"
+    ITEM_ID_FIELD: str = "news_id"
     RATING_FIELD: str = None
     TIME_FIELD: str = "timestamp"
     seq_len: dict[str, int] = dataclasses.field(default_factory=lambda: {"history": 20})
@@ -100,8 +98,8 @@ class DataSettings(AbstractConfig):
     NEG_PREFIX: str = "neg_"
     load_col: dict[str, list[str]] = dataclasses.field(
         default_factory=lambda: {
-            "inter": ["user_id", "item_id", "history", "timestamp"],
-            "item": ["item_id", "title", "category", "subcategory"],
+            "inter": ["user_id", "news_id", "history", "timestamp", "label"],
+            "item": ["news_id", "title", "category", "subcategory"],
         }
     )
     unload_col = None
