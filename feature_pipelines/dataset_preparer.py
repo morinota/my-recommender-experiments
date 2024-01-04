@@ -1,11 +1,10 @@
 from pathlib import Path
 
-from feature_pipelines.MIND_dataset import MINDDataset
-from feature_pipelines.convert_raw_input_to_atomic import ConvertRawInputToAtomicTask
-from feature_pipelines.raw_input_downloader import DownloadRawInputTask
-from feature_pipelines.atomic_file_exporter import AtomicFileExporter
-
-from recommender_experiments.model.task_interface import TaskInterface
+from MIND_dataset import MINDDataset
+from convert_raw_input_to_atomic import ConvertRawInputToAtomicTask
+from raw_input_downloader import DownloadRawInputTask
+from atomic_file_exporter import AtomicFileExporter
+from task_interface import TaskInterface
 
 
 class DatasetPreparer(TaskInterface):

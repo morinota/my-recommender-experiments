@@ -1,6 +1,6 @@
 import pandas as pd
 
-from recommender_experiments.model.task_interface import TaskInterface
+from task_interface import TaskInterface
 
 
 class ConvertRawInputToAtomicTask(TaskInterface):

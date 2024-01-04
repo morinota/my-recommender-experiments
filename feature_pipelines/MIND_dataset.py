@@ -9,7 +9,7 @@ from numpy import int8
 import pandas as pd
 
 # from feature_pipelines.base_dataset import RawDatasetInterface
-from feature_pipelines.impression_separator import ImpresionsSeparator
+from impression_separator import ImpresionsSeparator
 
 
 @dataclass
