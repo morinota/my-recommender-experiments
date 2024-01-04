@@ -18,3 +18,15 @@
 https://www.kaggle.com/masatomasamasa/my-recommender-experiments/edit
 
 windowsの場合は、numpyとscipyをhttps://toriaezu-engineer.hatenablog.com/entry/2016/10/09/084428を参考にinstallする。
+
+## google colabでの実行手順:
+
+```
+# environment setup
+!git clone https://github.com/morinota/my-recommender-experiments.git
+!pip install -r requirements.txt
+
+!python ./feature_pipelines/main.py
+
+!python ./training_pipelines/main.py
+```
