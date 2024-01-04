@@ -13,21 +13,22 @@ class ConvertRawInputToAtomicTask(TaskInterface):
     def run(
         self,
         df: pd.DataFrame,
-        field_type_by_id: dict[int, str],
+        feature_type_by_name: dict[str, str],
     ) -> str:
         output_data = pd.DataFrame()
-        print(f"field_type_by_id: {field_type_by_id=}")
+        print(f"feature_type_by_name: {feature_type_by_name=}")
         print(f"df.columns: {df.columns=}")
-        for col_idx in field_type_by_id:
-            output_data[col_idx] = df.iloc[:, col_idx]
-        print(f"hoge")
+        for feature_name, feature_type in feature_type_by_name.items():
+            atomic_feature_name = f"{feature_name}:{feature_type}"
+            print(f"{atomic_feature_name=}")
+            output_data[atomic_feature_name] = df.loc[:, feature_name]
 
         # 1行目はfield名
-        atomic_records = [self.SEPARATOR.join([field_type_by_id[int(col_idx)] for col_idx in output_data.columns])]
+        atomic_records = [self.SEPARATOR.join(output_data.columns)]
 
         for record in output_data.itertuples():
-            atomic_records.append(
-                self.SEPARATOR.join([str(record[int(col_idx) + 1]) for col_idx in output_data.columns])
-            )
+            print(record)
+            atomic_record = self.SEPARATOR.join([str(feature) for feature in record[1:]])  # idx=0は行番号なので除外
+            atomic_records.append(atomic_record)
 
         return self.LINEBREAK.join(atomic_records)

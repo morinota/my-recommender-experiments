@@ -1,10 +1,7 @@
 from dataclasses import dataclass
-import os
 from pathlib import Path
 import tempfile
-from typing import Optional
 import zipfile
-from numpy import int8
 
 import pandas as pd
 
@@ -41,30 +38,23 @@ class MINDDataset:
         },
     }
 
-    behaviors_fields = {
-        0: "impression_id:token",
-        1: "user_id:token",
-        2: "time:float",
-        3: "history:token_seq",
-        4: "item_id:token",
+    behaviors_feature_type_by_name = {
+        "impression_id": "token",
+        "user_id": "token",
+        "time": "float",
+        "history": "token_seq",
+        "news_id": "token",
+        "label": "float",
     }
-    news_fields = {
-        0: "id:token",
-        1: "category:token",
-        2: "subcategory:token",
-        3: "title:token_seq",
-        4: "abstract:token_seq",
-        5: "url:token",
-        6: "title_entities:token_seq",
-        7: "abstract_entities:token_seq",
-    }
-    entity_embedding_fields = {
-        0: "entity_id:token",
-        1: "vector:float_seq",
-    }
-    relation_embedding_fields = {
-        0: "relation_id:token",
-        1: "vector:float_seq",
+    news_feature_type_by_name = {
+        "news_id": "token",
+        "category": "token",
+        "subcategory": "token",
+        "title": "token_seq",
+        "abstract": "token_seq",
+        "url": "token",
+        "title_entities": "token_seq",
+        "abstract_entities": "token_seq",
     }
 
     behaviors: pd.DataFrame

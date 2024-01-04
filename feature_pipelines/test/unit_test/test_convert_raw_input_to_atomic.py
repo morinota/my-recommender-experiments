@@ -7,9 +7,6 @@ import pandas as pd
 
 def test_df_is_converted_str_for_atomic_file() -> None:
     # Arrange
-    print(os.getcwd)
-    # import可能なpathを出力
-    print(sys.path)
     df = pd.DataFrame(
         {
             "id": [1, 2],
@@ -19,7 +16,7 @@ def test_df_is_converted_str_for_atomic_file() -> None:
     )
     feature_type_by_name = {
         "id": "token",
-        "category": ":token",
+        "category": "token",
         "subcategory": "token",
     }
     sut = ConvertRawInputToAtomicTask()

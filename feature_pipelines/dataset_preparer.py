@@ -26,8 +26,8 @@ class DatasetPreparer(TaskInterface):
 
         converter = ConvertRawInputToAtomicTask()
         atomic_data_by_name = {
-            f"{dataset_type}.inter": converter.run(mind_dataset.behaviors, mind_dataset.behaviors_fields),
-            f"{dataset_type}.item": converter.run(mind_dataset.news, mind_dataset.news_fields),
+            f"{dataset_type}.inter": converter.run(mind_dataset.behaviors, mind_dataset.behaviors_feature_type_by_name),
+            f"{dataset_type}.item": converter.run(mind_dataset.news, mind_dataset.news_feature_type_by_name),
         }
         print("[LOG] convert_to_atomic finished")
 
