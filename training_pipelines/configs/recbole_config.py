@@ -1,8 +1,6 @@
 import abc
 import dataclasses
-from os import wait
-from random import shuffle
-from tkinter import wantobjects
+from pathlib import Path
 from typing import Any
 
 
@@ -20,41 +18,16 @@ class EnvironmentSettings(AbstractConfig):
     state: str = "INFO"  # ログレベル
     encoding: str = "utf-8"
     repproducibility: bool = True  # 実験結果を再現可能にするか否か
-    data_path: str = "atomic_dataset/"
-    checkpoint_dir: str = "save/checkpoints/"  # データセットや学習するモデルパラメータの保存先
+    data_path: str = "./feature_store/atomic_data/"
+    checkpoint_dir: str = "./training_pipelines/save/checkpoints/"  # データセットや学習するモデルパラメータの保存先
     show_progress: bool = True
     save_dataset: bool = False
-    dataset_save_path: str = "save/dataset/"
+    dataset_save_path: str = "./training_pipelines/save/dataset/"
     save_dataloader: bool = False
-    dataloaders_save_path: str = "save/dataloader/"
+    dataloaders_save_path: str = "./training_pipelines/save/dataloader/"
     log_wandb: bool = False
     wandb_project: str = "recbole"
     shuffle: bool = True
-
-
-@dataclasses.dataclass(frozen=True)
-class DataSettings(AbstractConfig):
-    # Atomic File Format(ここで指定さえすればcsvでもOK)
-    field_separator: str = "\t"
-    seq_separator: str = " "
-    # Basic Information
-    ## Common Features
-    USER_ID_FIELD: str = "user_id"
-    ITEM_ID_FIELD: str = "item_id"
-    RATING_FIELD: str = None
-    seq_len: dict[str, int] = dataclasses.field(default_factory=lambda: {"history": 20})
-    # Selecvitevly Loading
-    load_col: dict[str, list[str]] = dataclasses.field(
-        default_factory=lambda: {
-            "inter": ["user_id", "item_id", "history", "timestamp"],
-            "item": ["item_id", "title", "category", "subcategory"],
-        }
-    )
-    unuserd_col: dict[str, list[str]] = dataclasses.field(
-        default_factory=lambda: {
-            "inter": ["timestamp"],
-        }
-    )
 
 
 @dataclasses.dataclass(frozen=True)
@@ -107,3 +80,57 @@ class EvaluationSettings(AbstractConfig):
     valid_metric: str = "MRR@10"  # early stopping用のmetric。1つのみ指定可能。
     eval_batch_size: int = 512  # 評価時のbatch size
     metric_decimal_place: int = 4  # 評価指標の小数点以下の桁数
+
+
+@dataclasses.dataclass(frozen=True)
+class DataSettings(AbstractConfig):
+    # Atomic File Format(ここで指定さえすればcsvでもOK)
+    field_separator: str = "\t"
+    seq_separator: str = " "
+    # Basic Information
+    ## Common Features
+    USER_ID_FIELD: str = "user_id"
+    ITEM_ID_FIELD: str = "item_id"
+    RATING_FIELD: str = None
+    TIME_FIELD: str = "timestamp"
+    seq_len: dict[str, int] = dataclasses.field(default_factory=lambda: {"history": 20})
+    # Selecvitevly Loading
+    LABEL_FIELD: str = "label"
+    threshold: float = None
+    NEG_PREFIX: str = "neg_"
+    load_col: dict[str, list[str]] = dataclasses.field(
+        default_factory=lambda: {
+            "inter": ["user_id", "item_id", "history", "timestamp"],
+            "item": ["item_id", "title", "category", "subcategory"],
+        }
+    )
+    unload_col = None
+    unused_col: dict[str, list[str]] = dataclasses.field(
+        default_factory=lambda: {
+            "inter": ["timestamp"],
+        }
+    )
+    additional_feat_suffix: list[str] = dataclasses.field(default_factory=lambda: [])
+    numerical_features: list[str] = dataclasses.field(default_factory=lambda: [])
+
+
+def load_config_from_yamls(config_files_dir: Path) -> dict[str, Any]:
+    """複数のconfigファイルを読み込んで、1つのdictに変換して返す。デフォルト値としてデータクラスの値を使う。
+    Args:
+        config_files_dir: Path
+    Returns:
+        config_dict: dict[str, Any]
+    """
+    environment_settings = EnvironmentSettings().to_dict()
+    training_settings = TrainingSettings().to_dict()
+    evaluation_settings = EvaluationSettings().to_dict()
+    data_settings = DataSettings().to_dict()
+    additional_settings = {"sample_param": "hoge"}
+
+    return {
+        **environment_settings,
+        **training_settings,
+        **evaluation_settings,
+        **data_settings,
+        **additional_settings,
+    }
