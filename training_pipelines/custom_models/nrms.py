@@ -18,10 +18,13 @@ from recbole.config import Config
 from recbole.data.interaction import Interaction
 from recbole.data.dataset import Dataset
 from custom_models.layers import AdditiveAttention, MultiHeadSelfAttention
+from recbole.utils import InputType
 
 
 # 参考: https://recbole.io/docs/developer_guide/customize_models.html
-class NRMS(AbstractRecommender):
+class NRMS(GeneralRecommender):
+    input_type = InputType.LISTWISE
+
     def __init__(self, config: Config, dataset: Dataset) -> None:
         super(NRMS, self).__init__(config, dataset)
         self.config = config
