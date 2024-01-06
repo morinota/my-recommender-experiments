@@ -11,7 +11,7 @@ def main() -> None:
     # current_dirを出力
     print(f"[LOG] current_dir: {Path.cwd()}")
 
-    model = "NRMS"
+    model = "BPR"
     dataset_name = "mind_training_small"
     config_files_dir = Path("./training_pipelines/configs/BPR_configs/")
 
