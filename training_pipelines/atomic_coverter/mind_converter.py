@@ -8,18 +8,21 @@ class MINDTrainConverter:
     SEP = "\t"
     LINEBREAK = "\n"
 
-    def __init__(self, input_path: Path, output_path: Path, dataset_name: str) -> None:
+    def __init__(self, raw_data_dir: Path, atomic_data_dir: Path, dataset_name: str) -> None:
         self.dataset_name = dataset_name
         self.sep = "\t"
 
         # input file
-        self.item_file = input_path / self.dataset_name / "news.tsv"
-        self.inter_file = input_path / self.dataset_name / "behaviors.tsv"
+        self.input_dir = raw_data_dir / self.dataset_name
+        self.item_file = self.input_dir / "news.tsv"
+        self.inter_file = self.input_dir / "behaviors.tsv"
 
         # output file
-        output_path.mkdir(parents=True, exist_ok=True)
-        self.output_item_file = output_path / self.dataset_name / f"{self.dataset_name}.item"
-        self.output_inter_file = output_path / self.dataset_name / f"{self.dataset_name}.inter"
+        atomic_data_dir.mkdir(parents=True, exist_ok=True)
+        self.output_dir = atomic_data_dir / self.dataset_name
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.output_item_file = self.output_dir / f"{self.dataset_name}.item"
+        self.output_inter_file = self.output_dir/ f"{self.dataset_name}.inter"
 
         # fields
         self.item_fields = {
@@ -41,6 +44,7 @@ class MINDTrainConverter:
         }
 
     def convert(self) -> None:
+        self.
         self._convert_item()
         self._convert_inter_with_only_positive_record()
 
