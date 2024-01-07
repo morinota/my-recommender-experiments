@@ -15,7 +15,7 @@ class EnvironmentSettings(AbstractConfig):
     gpu_id: str = "0"
     use_gpu: bool = False
     seed: int = 2020
-    state: str = "INFO"  # ログレベル
+    state: str = "DEBUG"  # ログレベル
     encoding: str = "utf-8"
     repproducibility: bool = True  # 実験結果を再現可能にするか否か
     data_path: str = "./feature_store/atomic_data/"
@@ -98,7 +98,7 @@ class DataSettings(AbstractConfig):
     NEG_PREFIX: str = "neg_"
     load_col: dict[str, list[str]] = dataclasses.field(
         default_factory=lambda: {
-            "inter": ["user_id", "news_id", "history", "timestamp", "label"],
+            "inter": ["impression_id", "user_id", "history", "timestamp", "news_id"],
             "item": ["news_id", "title", "category", "subcategory"],
         }
     )
