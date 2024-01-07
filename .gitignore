@@ -8,3 +8,6 @@
 *.item
 *.user
 *log_*/*
+*.tsv
+*.csv
+*.vec
