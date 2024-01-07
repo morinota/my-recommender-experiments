@@ -22,7 +22,7 @@ class MINDTrainConverter:
         self.output_dir = atomic_data_dir / self.dataset_name
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.output_item_file = self.output_dir / f"{self.dataset_name}.item"
-        self.output_inter_file = self.output_dir/ f"{self.dataset_name}.inter"
+        self.output_inter_file = self.output_dir / f"{self.dataset_name}.inter"
 
         # fields
         self.item_fields = {
@@ -44,7 +44,6 @@ class MINDTrainConverter:
         }
 
     def convert(self) -> None:
-        self.
         self._convert_item()
         self._convert_inter_with_only_positive_record()
 
