@@ -5,6 +5,7 @@ from convert_raw_input_to_atomic import ConvertRawInputToAtomicTask
 from raw_input_downloader import DownloadRawInputTask
 from atomic_file_exporter import AtomicFileExporter
 from task_interface import TaskInterface
+import zipfile
 
 
 class DatasetPreparer(TaskInterface):
@@ -21,15 +22,15 @@ class DatasetPreparer(TaskInterface):
         raw_input_zip_path = downloader.run(dataset_type, destination_dir, is_force_download)
         print("[LOG] downloader.run finished")
 
-        mind_dataset = MINDDataset.load_from_zip(raw_input_zip_path)
-        print("[LOG] MINDDataset.load_from_zip finished")
+        # zipファイルを同じ場所にunzipする
+        unzip_dir = raw_input_zip_path.parent
+        with zipfile.ZipFile(raw_input_zip_path, "r") as zip_ref:
+            zip_ref.extractall(unzip_dir)
+        print("[LOG] unzip finished")
+        # TODO:特徴量エンジニアリングすることを考えると、一旦読み込んでから、特徴量を作って、カラム付きでtsv出力し直すと良さそう。
 
-        converter = ConvertRawInputToAtomicTask()
-        atomic_data_by_name = {
-            f"{dataset_type}.inter": converter.run(mind_dataset.behaviors, mind_dataset.behaviors_feature_type_by_name),
-            f"{dataset_type}.item": converter.run(mind_dataset.news, mind_dataset.news_feature_type_by_name),
-        }
-        print("[LOG] convert_to_atomic finished")
+        # mind_dataset = MINDDataset.load_from_zip(raw_input_zip_path)
+        # print("[LOG] MINDDataset.load_from_zip finished")
 
-        exporter = AtomicFileExporter()
-        return exporter.run(atomic_data_by_name, destination_dir)
+        # mind_dataset.export(output_dir=destination_dir)
+        # print("[LOG] mind_dataset.export finished")

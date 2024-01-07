@@ -4,14 +4,11 @@ from dataset_preparer import DatasetPreparer
 
 
 def main():
-    dataset_type = "mind_training_small"
-    destination_dir = Path(f"./feature_store/atomic_data/{dataset_type}/")
+    dataset_name = "mind_training_small"
+    destination_dir = Path(f"./feature_store/raw_data/{dataset_name}/")
 
     preparer = DatasetPreparer()
-    atomic_files = preparer.run(dataset_type, destination_dir, False)
-
-    for filepath in atomic_files:
-        print(f"[LOG] {filepath} is successfully created.")
+    preparer.run(dataset_name, destination_dir, False)
 
 
 if __name__ == "__main__":

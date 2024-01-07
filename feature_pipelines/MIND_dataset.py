@@ -98,8 +98,7 @@ class MINDDataset:
             header=None,
             names=["impression_id", "user_id", "time", "history", "impressions"],
         )
-        separator = ImpresionsSeparator()
-        return separator.separate(behavior_df, "impressions")
+        return behavior_df
 
     @classmethod
     def _load_news_data(cls, unziped_dir: Path) -> pd.DataFrame:
@@ -137,3 +136,12 @@ class MINDDataset:
         relation_embedding["vector"] = relation_embedding.iloc[:, 1:101].values.tolist()
         relation_embedding = relation_embedding[[0, "vector"]].rename(columns={0: "entity_id"})
         return relation_embedding
+
+    def export(self, output_dir: Path) -> None:
+        """ """
+        output_dir.mkdir(parents=True, exist_ok=True)
+        # tsv形式で出力
+        self.behaviors.to_csv(output_dir / "behaviors.tsv", sep="\t", index=False)
+        self.news.to_csv(output_dir / "news.tsv", sep="\t", index=False)
+        self.entity_embeddings.to_csv(output_dir / "entity_embedding.vec", sep="\t", index=False)
+        self.relation_embeddings.to_csv(output_dir / "relation_embedding.vec", sep="\t", index=False)
