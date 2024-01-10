@@ -1,7 +1,7 @@
 import abc
 import dataclasses
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 
 @dataclasses.dataclass(frozen=True)
@@ -15,7 +15,7 @@ class EnvironmentSettings(AbstractConfig):
     gpu_id: str = "0"
     use_gpu: bool = False
     seed: int = 2020
-    state: str = "DEBUG"  # ログレベル
+    state: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "DEBUG"
     encoding: str = "utf-8"
     repproducibility: bool = True  # 実験結果を再現可能にするか否か
     data_path: str = "./feature_store/atomic_data/"
