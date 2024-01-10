@@ -4,3 +4,4 @@ recbole == 1.2.0 # https://pypi.org/project/recbole/#history
 pytest == 7.4.3
 transformers == 4.36.2 # https://pypi.org/project/transformers/#history
 kmeans-pytorch == 0.3
+mypy
